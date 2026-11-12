@@ -1,0 +1,440 @@
+:root {
+  --bg: #f3f6fb;
+  --ink: #14213d;
+  --muted: #4a5775;
+  --card: #fff;
+  --accent: #2a4bff;
+  --sun: #ffc53d;
+  --line: #d7deec;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1630;
+    --ink: #eef2ff;
+    --muted: #a9b4d6;
+    --card: #18214a;
+    --line: #2b3866;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1630;
+  --ink: #eef2ff;
+  --muted: #a9b4d6;
+  --card: #18214a;
+  --line: #2b3866;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+/* ---------- Header and navigation ---------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.logo {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: "Bricolage Grotesque", sans-serif;
+  box-shadow: 0.25rem 0.25rem 0 var(--sun);
+}
+
+header .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover,
+nav a[aria-current] {
+  border-color: var(--accent);
+}
+
+/* ---------- Home page ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+  padding-block: 3rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  letter-spacing: -0.03em;
+}
+
+.age {
+  display: inline-block;
+  background: var(--sun);
+  color: #14213d;
+  font-weight: 700;
+  padding: 0.15rem 0.8rem;
+  border-radius: 2rem;
+  margin: 1rem 0;
+}
+
+.hero p {
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.avatar {
+  width: min(260px, 60vw);
+  aspect-ratio: 1;
+  border-radius: 42% 58% 55% 45% / 50% 45% 55% 50%;
+  background: var(--accent);
+  display: grid;
+  place-items: center;
+  box-shadow: 0.8rem 0.8rem 0 var(--sun);
+}
+
+/* ---------- Buttons ---------- */
+
+.buttons {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.85rem 1.6rem;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: #fff;
+  transition: transform 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn.alt {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+/* ---------- Inner pages ---------- */
+
+main h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  margin-bottom: 1.5rem;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.panel h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.panel p,
+.panel li {
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: 1.25rem;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  padding: 0.1rem 0.7rem;
+  margin: 0.6rem 0.3rem 0 0;
+}
+
+.bar {
+  height: 0.7rem;
+  background: var(--bg);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 0.3rem 0 1rem;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+ul {
+  padding-left: 1.2rem;
+}
+
+footer {
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Mobile and accessibility ---------- */
+
+@media (max-width: 700px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .avatar {
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+/* ---------- Add forms ---------- */
+
+.add-form {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  border: 2px dashed var(--accent);
+  border-radius: 1rem;
+  background: var(--card);
+}
+
+.add-form label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.add-form .field {
+  margin-bottom: 0;
+}
+
+.add-form .btn {
+  justify-self: start;
+}
+
+.add-form input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+img.avatar {
+  object-fit: cover;
+}
+/* ---------- Theme toggle ---------- */
+
+.theme-toggle {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--ink);
+  border-radius: 2rem;
+  padding: 0.35rem 1rem;
+}
+
+.theme-toggle:hover {
+  background: var(--card);
+}
+/* ---------- Phone layout ---------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+h1,
+h2,
+p {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    padding: 1.25rem 1rem;
+  }
+
+  header .wrap {
+    gap: 0.6rem;
+  }
+
+  nav {
+    gap: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .avatar {
+    width: min(220px, 65vw);
+    margin: 0 auto 0.8rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  main h1 {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .panel {
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  nav {
+    font-size: 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .logo {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+}
+/* ---------- Project pictures ---------- */
+
+.project-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0.7rem;
+  border: 1px solid var(--line);
+  margin-bottom: 1rem;
+}
+/* ---------- Achievement pictures ---------- */
+
+.achievement-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.achievement-list li {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.achievement-img {
+  display: block;
+  width: 90%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0.7rem;
+  border: 1px solid var(--line);
+  transition: transform 0.15s;
+}
+
+.achievement-img:hover {
+  transform: scale(1.02);
+}
