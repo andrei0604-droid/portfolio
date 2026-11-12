@@ -61,7 +61,7 @@ function Home() {
           <Link className="btn alt" to="/skills" target="_blank" rel="noopener">Achievements / Skills</Link>
         </div>
       </div>
-      <img className="avatar" src="andrei.jpg" alt={`Photo of ${profile.name}`} />
+      <img className="avatar" src="90bd97d8-232e-4d28-9d5f-3b14b93c51d3.jpg" alt={`Photo of ${profile.name}`} />
     </main>
   );
 }
