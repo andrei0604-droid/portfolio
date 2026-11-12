@@ -438,3 +438,47 @@ p {
 .achievement-img:hover {
   transform: scale(1.02);
 }
+/* ---------- Contact section ---------- */
+
+.contact-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.contact-list li {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.contact-list span {
+  min-width: 5.5rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.contact-list a,
+.contact-list b {
+  color: var(--accent);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.contact-list b {
+  color: var(--muted);
+}
+
+.contact-links {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.btn.small {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+}

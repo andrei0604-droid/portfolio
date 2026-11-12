@@ -1,6 +1,6 @@
 import { Routes, Route, Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { profile, projects, skills, achievements, Skill } from "./data.js";
+import { profile, projects, skills, achievements, Skill, contact } from "./data.js";
 
 function Layout({ title, children, showNav = true }) {
     const [theme, setTheme] = useState(() => {
@@ -74,7 +74,34 @@ function About() {
         <Panel title="Education"><p>{profile.education}</p></Panel>
         <Panel title="Interests"><p>{profile.interests}</p></Panel>
         <Panel title="Goal"><p>{profile.goal}</p></Panel>
-      </div><Back />
+      </div>
+
+      <section className="panel contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact me</h2>
+        <ul className="contact-list">
+          <li>
+            <span>Email</span>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </li>
+          <li>
+            <span>Phone</span>
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
+          </li>
+          <li>
+            <span>Location</span>
+            <b>{contact.location}</b>
+          </li>
+        </ul>
+        <div className="contact-links">
+          {contact.links.map((l) => (
+            <a key={l.label} className="btn small" href={l.url} target="_blank" rel="noopener noreferrer">
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <Back />
     </main>
   );
 }

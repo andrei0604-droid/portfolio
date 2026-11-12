@@ -9,6 +9,15 @@ export const profile = {
   interests: "cycling, exploring new things.",
   goal: "To make many Gain a wealth of knowledge in various fields, and lastly, achieve what every student dreams of successfully completing their education.",
 };
+export const contact = {
+  email: ["andreiniego190@gmail.com ", ",", " alexandrei.bakingking@cvsu.edu.ph"],
+  phone: "09930927625",
+  location: "Las Piñas City, Philippines",
+  links: [
+    { label: "GitHub", url: "https://github.com/andrei0604-droid" },
+    { label: "Facebook", url: "https://www.facebook.com/share/1CDbQ9fHe9/" },
+  ],
+};
 export const projects = [
   {
     title: "Personal Portfolio One",
