@@ -4,7 +4,7 @@ export const profile = {
   initials: "AB",
   age: 22,
   intro: "Hi! I'm a CS (Computer Science) student in Cvsu Bacoor Campus .",
-  story: "I'm Alexandrei N. Bakingking, 22 years old, from Las Piñas City, Philippines. And to me, life is like a trial card in a game, it’s not meant to last forever. That’s why I choose to enjoy every moment rather than dwell on my problems (Replace this with your own story.)",
+  story: "I'm Alexandrei N. Bakingking, 22 years old, from Las Piñas City, Philippines. And to me, life is like a trial card in a game, it’s not meant to last forever. That’s why I choose to enjoy every moment rather than dwell on my problems ",
   education: ["Electrical Graduate in TESDA "," Computer Science, Cavite State University Bacoor Campus."],
   interests: "cycling, exploring new things.",
   goal: "To make many Gain a wealth of knowledge in various fields, and lastly, achieve what every student dreams of successfully completing their education.",
