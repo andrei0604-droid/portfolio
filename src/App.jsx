@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as D from "./data.js";
 
 const { profile, projects, skills, achievements, contact } = D;
@@ -10,7 +10,52 @@ const NAV = [
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Achievements / Skills" },
 ];
+function Sky() {
+  // Fixed star positions so they don't jump around on re-render.
+  const stars = useMemo(() => {
+    let seed = 7;
+    const rand = () => {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    };
+    return Array.from({ length: 90 }, (_, i) => ({
+      id: i,
+      left: rand() * 100,
+      top: rand() * 100,
+      size: 1 + rand() * 2.2,
+      delay: rand() * 4,
+      dur: 2 + rand() * 3,
+    }));
+  }, []);
 
+  return (
+    <div className="sky" aria-hidden="true">
+      <div className="sky-day">
+        <div className="sun" />
+        <div className="cloud c1" />
+        <div className="cloud c2" />
+        <div className="cloud c3" />
+      </div>
+      <div className="sky-night">
+        {stars.map((s) => (
+          <span
+            key={s.id}
+            className="star"
+            style={{
+              left: `${s.left}%`,
+              top: `${s.top}%`,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animationDelay: `${s.delay}s`,
+              animationDuration: `${s.dur}s`,
+            }}
+          />
+        ))}
+        <div className="moon" />
+      </div>
+    </div>
+  );
+}
 function Header() {
   const [theme, setTheme] = useState(() => {
     try {
@@ -199,6 +244,7 @@ export default function App() {
 
   return (
     <>
+      <Sky />
       <Header />
       <main>
         <Home />
