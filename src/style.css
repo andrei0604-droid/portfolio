@@ -482,3 +482,91 @@ p {
   padding: 0.5rem 1.1rem;
   font-size: 0.9rem;
 }
+/* ---------- One-page layout ---------- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+header .wrap {
+  padding-block: 0.8rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.section {
+  padding-block: 3.5rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  margin-bottom: 1.5rem;
+}
+
+.hero {
+  min-height: calc(100vh - 4.5rem);
+}
+
+footer a {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  html {
+    scroll-padding-top: 7rem;
+  }
+
+  header nav {
+    font-size: 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .nav-right {
+    gap: 0.6rem;
+  }
+
+  .theme-toggle {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .section {
+    padding-block: 2.5rem;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+/* ---------- Clickable pictures ---------- */
+
+.project-img,
+.achievement-img {
+  cursor: zoom-in;
+  transition: transform 0.15s;
+}
+
+.project-img:hover,
+.achievement-img:hover {
+  transform: scale(1.02);
+}

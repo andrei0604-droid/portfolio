@@ -1,9 +1,18 @@
-import { Routes, Route, Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { profile, projects, skills, achievements, Skill, contact } from "./data.js";
+import * as D from "./data.js";
 
-function Layout({ title, children, showNav = true }) {
-    const [theme, setTheme] = useState(() => {
+const { profile, projects, skills, achievements, contact } = D;
+const skillText = D.Skill ?? D.updatePlan;
+
+const NAV = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Achievements / Skills" },
+];
+
+function Header() {
+  const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem("theme");
       if (saved) return saved;
@@ -15,60 +24,65 @@ function Layout({ title, children, showNav = true }) {
     document.documentElement.setAttribute("data-theme", theme);
     try { localStorage.setItem("theme", theme); } catch { /* ignore */ }
   }, [theme]);
-  useEffect(() => { document.title = `${title} | ${profile.name}`; window.scrollTo(0, 0); }, [title]);
+
   return (
-    <>
-      <header><div className="wrap">
-        <Link className="brand" to="/"><span className="logo" aria-hidden="true">{profile.initials}</span>{profile.name}</Link>
-          {showNav && (
-            <nav aria-label="Main">
-              <NavLink to="/" end>Home</NavLink>
-              <NavLink to="/about">About</NavLink>
-              <NavLink to="/projects">Projects</NavLink>
-              <NavLink to="/skills">Achievements / Skills</NavLink>
-            </nav>
-          )}
-         <button
-          className="theme-toggle"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-        >
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-        </button>
-      </div></header>
-      {children}
-      <footer>&copy; 2026 {profile.name}. / CS Student.</footer>
-    </>
+    <header>
+      <div className="wrap">
+        <a className="brand" href="#home">
+          <span className="logo" aria-hidden="true">{profile.initials}</span>
+          {profile.name}
+        </a>
+        <div className="nav-right">
+          <nav aria-label="Main">
+            {NAV.map((n) => (
+              <a key={n.id} href={`#${n.id}`}>{n.label}</a>
+            ))}
+          </nav>
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+          </button>
+        </div>
+      </div>
+    </header>
   );
 }
 
-const Panel = ({ title, children }) => (
-  <section className="panel"><h2>{title}</h2>{children}</section>
+const Section = ({ id, title, children }) => (
+  <section id={id} className="wrap section" aria-labelledby={`${id}-title`}>
+    <h2 className="section-title" id={`${id}-title`}>{title}</h2>
+    {children}
+  </section>
 );
-const Back = () => <p className="buttons"><Link className="btn alt" to="/">Back to home</Link></p>;
+
+const Panel = ({ title, children }) => (
+  <div className="panel"><h2>{title}</h2>{children}</div>
+);
 
 function Home() {
   return (
-    <main className="wrap hero">
+    <section id="home" className="wrap hero">
       <div>
         <h1>{profile.name}</h1>
         <span className="age">Age: {profile.age}</span>
         <p>{profile.intro}</p>
         <div className="buttons">
-          {/* target="_blank" opens each page in a new tab */}
-          <Link className="btn" to="/about" target="_blank" rel="noopener">About</Link>
-          <Link className="btn" to="/projects" target="_blank" rel="noopener">Projects</Link>
-          <Link className="btn alt" to="/skills" target="_blank" rel="noopener">Achievements / Skills</Link>
+          <a className="btn" href="#about">About</a>
+          <a className="btn" href="#projects">Projects</a>
+          <a className="btn alt" href="#skills">Achievements / Skills</a>
         </div>
       </div>
       <img className="avatar" src="90bd97d8-232e-4d28-9d5f-3b14b93c51d3.jpg" alt={`Photo of ${profile.name}`} />
-    </main>
+    </section>
   );
 }
 
 function About() {
   return (
-    <main className="wrap"><h1>About me</h1>
+    <Section id="about" title="About me">
       <Panel title="Who I am"><p>{profile.story}</p></Panel>
       <div className="grid">
         <Panel title="Education"><p>{profile.education}</p></Panel>
@@ -76,68 +90,71 @@ function About() {
         <Panel title="Goal"><p>{profile.goal}</p></Panel>
       </div>
 
-      <section className="panel contact" aria-labelledby="contact-title">
-        <h2 id="contact-title">Contact me</h2>
-        <ul className="contact-list">
-          <li>
-            <span>Email</span>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          </li>
-          <li>
-            <span>Phone</span>
-            <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
-          </li>
-          <li>
-            <span>Location</span>
-            <b>{contact.location}</b>
-          </li>
-        </ul>
-        <div className="contact-links">
-          {contact.links.map((l) => (
-            <a key={l.label} className="btn small" href={l.url} target="_blank" rel="noopener noreferrer">
-              {l.label}
-            </a>
-          ))}
+      {contact && (
+        <div className="panel contact">
+          <h2>Contact me</h2>
+          <ul className="contact-list">
+            <li>
+              <span>Email</span>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </li>
+            <li>
+              <span>Phone</span>
+              <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
+            </li>
+            <li>
+              <span>Location</span>
+              <b>{contact.location}</b>
+            </li>
+          </ul>
+          <div className="contact-links">
+            {contact.links.map((l) => (
+              <a key={l.label} className="btn small" href={l.url} target="_blank" rel="noopener noreferrer">
+                {l.label}
+              </a>
+            ))}
+          </div>
         </div>
-      </section>
-
-      <Back />
-    </main>
+      )}
+    </Section>
   );
 }
 
 function Projects() {
   return (
-    <main className="wrap"><h1>Projects</h1>
+    <Section id="projects" title="Projects">
       <div className="grid">
-        {projects.map(p => (
+        {projects.map((p) => (
           <article className="panel" key={p.title}>
             {p.image && (
-              <img
-                className="project-img"
-                src={p.image}
-                alt={`Screenshot of ${p.title}`}
-                loading="lazy"
-                onError={(e) => { e.currentTarget.style.display = "none"; }}
-              />
+              <a href={p.image} target="_blank" rel="noopener noreferrer" aria-label={`Open picture of ${p.title} in a new tab`}>
+                <img
+                  className="project-img"
+                  src={p.image}
+                  alt={`Screenshot of ${p.title}`}
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = "none"; }}
+                />
+              </a>
             )}
             <h2>{p.title}</h2>
             <p>{p.text}</p>
-            {p.tags.map(t => <span className="tag" key={t}>{t}</span>)}
+            {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
           </article>
         ))}
-      </div><Back />
-    </main>
+      </div>
+    </Section>
   );
 }
 
 function Skills() {
   return (
-    <main className="wrap"><h1>Achievements / Skills</h1>
+    <Section id="skills" title="Achievements / Skills">
       <div className="grid">
         <Panel title="Skills">
-          {skills.map(s => (
-            <div key={s.name}><p>{s.name}</p>
+          {skills.map((s) => (
+            <div key={s.name}>
+              <p>{s.name}</p>
               <div className="bar" role="img" aria-label={`${s.name}: ${s.level}%`}>
                 <span style={{ width: `${s.level}%` }} />
               </div>
@@ -147,42 +164,51 @@ function Skills() {
 
         <Panel title="Achievements">
           <ul className="achievement-list">
-            {achievements.map(a => (
-              <li key={a.text}>
-                {a.image && (
-                  <a href={a.image} target="_blank" rel="noopener" aria-label={`Open picture: ${a.text}`}>
-                    <img
-                      className="achievement-img"
-                      src={a.image}
-                      alt={a.text}
-                      loading="lazy"
-                      onError={(e) => { e.currentTarget.style.display = "none"; }}
-                    />
-                  </a>
-                )}
-                <span>{a.text}</span>
-              </li>
-            ))}
+            {achievements.map((item) => {
+              const a = typeof item === "string" ? { text: item } : item;
+              return (
+                <li key={a.text}>
+                  {a.image && (
+                    <a href={a.image} target="_blank" rel="noopener noreferrer" aria-label={`Open picture: ${a.text}`}>
+                     <img
+                       className="achievement-img"
+                       src={a.image}
+                       alt={a.text}
+                       loading="lazy"
+                       onError={(e) => { e.currentTarget.style.display = "none"; }}
+                       />
+                     </a>
+                    )}
+                  <span>{a.text}</span>
+                </li>
+              );
+            })}
           </ul>
         </Panel>
 
-        <Panel title="My skills"><p>{Skill}</p></Panel>
-      </div><Back />
-    </main>
+        <Panel title="My skills"><p>{skillText}</p></Panel>
+      </div>
+    </Section>
   );
 }
 
 export default function App() {
-  const page = (title, el, showNav = false) => (
-    <Layout title={title} showNav={showNav}>{el}</Layout>
-  );
+  useEffect(() => {
+    document.title = `${profile.name} | Portfolio`;
+  }, []);
+
   return (
-    <Routes>
-      <Route path="/" element={page("Home", <Home />, false)} />
-      <Route path="/about" element={page("About", <About />)} />
-      <Route path="/projects" element={page("Projects", <Projects />)} />
-      <Route path="/skills" element={page("Achievements & Skills", <Skills />)} />
-      <Route path="*" element={page("Not found", <main className="wrap"><h1>Page not found</h1><Back /></main>)} />
-    </Routes>
+    <>
+      <Header />
+      <main>
+        <Home />
+        <About />
+        <Projects />
+        <Skills />
+      </main>
+      <footer>
+        &copy; 2026 {profile.name}. Built with React. <a href="#home">Back to top</a>
+      </footer>
+    </>
   );
 }
