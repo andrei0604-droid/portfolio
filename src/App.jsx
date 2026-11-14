@@ -185,6 +185,17 @@ function Projects() {
             <h2>{p.title}</h2>
             <p>{p.text}</p>
             {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+
+            {p.link && (
+              <a
+                className="btn small project-link"
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View project
+              </a>
+            )}
           </article>
         ))}
       </div>

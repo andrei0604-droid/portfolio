@@ -745,3 +745,14 @@ html[data-theme="light"] footer {
     left: 10%;
   }
 }
+/* ---------- Project link button ---------- */
+
+.project-link {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.btn.small {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+}

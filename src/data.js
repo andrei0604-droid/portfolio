@@ -36,6 +36,7 @@ export const projects = [
     text: "This website is a LOST AND FOUND SYSTEM project in COSC 75",
     tags: ["React.js","Node.js", "MySQL", "Ongoing" ],
     image: "Screenshot 2026-11-12 160827.png",
+    link: "https://github.com/a-sedavia-hub/centralized-lost-and-found-system",
   },
 ];
 export const skills = [
